@@ -1,0 +1,57 @@
+﻿@model IEnumerable<GroceryClientApp.Models.Cart>
+
+@{
+    ViewData["Title"] = "GetMyCart";
+    Layout = "_LayoutUser";
+}
+
+<h1>MyCart</h1>
+
+
+<table class="table">
+    <thead>
+        <tr>
+          
+            <th>
+                @Html.DisplayNameFor(model => model.grocery.GroceryName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.grocery.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UnitPrice)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.grocery.GroceryName)
+            </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.grocery.Price)
+                </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UnitPrice)
+            </td>
+            <td>
+                <a asp-action="EditCart" asp-route-id="@item.CartID">Edit</a> |
+                <a asp-action="DeleteCart" asp-route-id="@item.CartID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<div>
+    <a asp-controller = "Bill" asp-action="Payment">Buy All</a>
+</div>

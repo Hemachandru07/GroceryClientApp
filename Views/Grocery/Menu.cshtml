@@ -1,0 +1,102 @@
+﻿@model IEnumerable<GroceryClientApp.Models.Grocery>
+@inject IHttpContextAccessor HttpContextAccessor
+
+@{
+    ViewBag.Customer = @HttpContextAccessor.HttpContext.Session.GetString("Customer");
+}
+@if (ViewBag.Customer == null)
+{
+    {
+        ViewData["Title"] = "Menu";
+        Layout = "_LayoutAdmin";
+
+    }
+
+    <h1>Menu</h1>
+
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.GroceryName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Price)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Stock)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GroceryName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Stock)
+                    </td>
+                    <td>
+                        <a asp-action="EditGrocery" asp-route-id="@item.GroceryID">Edit</a> |
+                        <a asp-action="GetGroceryById" asp-route-id="@item.GroceryID">Details</a> |
+                        <a asp-action="DeleteGrocery" asp-route-id="@item.GroceryID">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+}
+else
+{
+    {
+        ViewData["Title"] = "Menu";
+        Layout = "_LayoutUser";
+    }
+    <h1>Menu</h1>
+
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.GroceryName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Price)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Stock)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GroceryName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Stock)
+                    </td>
+                    <td>
+                        <a asp-action="GetGroceryById" asp-route-id="@item.GroceryID">Order</a> 
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+}
