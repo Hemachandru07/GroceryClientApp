@@ -11,9 +11,9 @@ namespace GroceryClientApp.Models
         public int CartID { get; set; }
 
         [Display(Name = "Cart Type ID")]
-        [Required(ErrorMessage = "*")]
+
         public string? CartTypeId { get; set; }
-        [Required(ErrorMessage = "*")]
+
         public int GroceryID { get; set; }
         [ForeignKey("GroceryID")]
         public virtual Grocery? grocery { get; set; }
@@ -21,13 +21,10 @@ namespace GroceryClientApp.Models
         public int CustomerID { get; set; }
         [ForeignKey("CustomerID")]
         public virtual Customer? customer { get; set; }
-        [Required(ErrorMessage = "*")]
+
         public int Quantity { get; set; }
-        [Required(ErrorMessage = "*")]
+
         [Display(Name = "Unit Price")]
-        public float? UnitPrice
-        {
-            get; set;
-        }
+        public float? UnitPrice { get; set; }
     }
 }

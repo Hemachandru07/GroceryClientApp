@@ -30,6 +30,7 @@ namespace GroceryClientApp.Models
         
         [RegularExpression("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$",
            ErrorMessage = "Password must contains one Uppercase,one Lowercase and one Specialcharacter")]
+        [DataType(DataType.Password)]
         public string? Password { get; set; }
 
         [NotMapped]

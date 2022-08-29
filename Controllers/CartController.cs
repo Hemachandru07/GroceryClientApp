@@ -6,6 +6,7 @@ using System.Text;
 
 namespace GroceryClientApp.Controllers
 {
+    [NoDirectAccess]
     public class CartController : Controller
     {
         string Baseurl = "https://localhost:44383/";
@@ -124,5 +125,8 @@ namespace GroceryClientApp.Controllers
             }
             return RedirectToAction("GetMyCart");
         }
+
+        
+
     }
 }

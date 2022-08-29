@@ -13,6 +13,7 @@ using System.Text;
 
 namespace GroceryClientApp.Controllers
 {
+    [NoDirectAccess]
     public class GroceryController : Controller
     {
         string Baseurl = "https://localhost:44383/";
@@ -20,12 +21,13 @@ namespace GroceryClientApp.Controllers
         // GET: Grocery
         public async Task<IActionResult> Menu()
         {
+            string? token = HttpContext.Session.GetString("Token");
             List<Grocery>? GroceryInfo = new List<Grocery>();
 
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri(Baseurl);
-                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 HttpResponseMessage Res = await client.GetAsync("api/Grocery");
 

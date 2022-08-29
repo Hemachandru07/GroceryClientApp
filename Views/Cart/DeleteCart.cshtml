@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "DeleteCart";
+    Layout = "_LayoutUser";
 }
 
 <h1>DeleteCart</h1>
@@ -13,13 +14,13 @@
     <dl class="row">
       
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.grocery)
+            @Html.DisplayNameFor(model => model.grocery.GroceryName)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.grocery.GroceryName)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.grocery)
+            @Html.DisplayNameFor(model => model.grocery.Price)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.grocery.Price)

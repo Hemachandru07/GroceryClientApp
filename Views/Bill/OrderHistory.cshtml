@@ -1,0 +1,53 @@
+﻿@model IEnumerable<GroceryClientApp.Models.Cart>
+
+@{
+    ViewData["Title"] = "OrderHistory";
+    Layout = "_LayoutUser";
+}
+
+<h1>OrderHistory</h1>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            
+            <th>
+                @Html.DisplayNameFor(model => model.grocery.GroceryName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.grocery.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UnitPrice)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+           
+            <td>
+                @Html.DisplayFor(modelItem => item.grocery.GroceryName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.grocery.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UnitPrice)
+            </td>
+            
+        </tr>
+}
+    </tbody>
+</table>
+<div>
+    <a asp-controller="Grocery" asp-action="Menu">Back to menu</a>
+</div>

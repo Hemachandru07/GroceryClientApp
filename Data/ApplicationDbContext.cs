@@ -15,5 +15,6 @@ namespace GroceryClientApp.Data
         public DbSet<GroceryClientApp.Models.Admin>? Admin { get; set; }
         public DbSet<GroceryClientApp.Models.Cart>? Cart { get; set; }
         public DbSet<GroceryClientApp.Models.Payment>? Payment { get; set; }
+        public DbSet<GroceryClientApp.Models.Receipt>? Receipt { get; set; }
     }
 }

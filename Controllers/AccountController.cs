@@ -3,9 +3,41 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Text;
 using Microsoft.AspNetCore.Routing;
+using NuGet.Common;
+using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace GroceryClientApp.Controllers
 {
+    //---------------------------------------
+    //No direct access
+    public class NoDirectAccessAttribute : ActionFilterAttribute
+    {
+        public override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            var canAcess = false;
+
+            // check the refer
+            var referer = filterContext.HttpContext.Request.Headers["Referer"].ToString();
+            if (!string.IsNullOrEmpty(referer))
+            {
+                var rUri = new System.UriBuilder(referer).Uri;
+                var req = filterContext.HttpContext.Request;
+                if (req.Host.Host == rUri.Host && req.Host.Port == rUri.Port && req.Scheme == rUri.Scheme)
+                {
+                    canAcess = true;
+                }
+            }
+
+            // ... check other requirements
+
+            if (!canAcess)
+            {
+                filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Home", action = "Index" }));
+            }
+        }
+    }
+    //-----------------------------------------
+    [NoDirectAccess]
     public class AccountController : Controller
     {
        
@@ -20,9 +52,10 @@ namespace GroceryClientApp.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> LoginUser(Customer customer)
+        public async Task<IActionResult> LoginUser(Customer? customer)
         {
-            Customer c = new Customer();
+            JWTToken jwt = new JWTToken();
+            
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri(Baseurl);
@@ -32,14 +65,19 @@ namespace GroceryClientApp.Controllers
                 if (Res.IsSuccessStatusCode)
                 {
                     string apiResponse = await Res.Content.ReadAsStringAsync();
-                    c = JsonConvert.DeserializeObject<Customer>(apiResponse);
-                    HttpContext.Session.SetString("Customer", customer.CustomerEmail);
-                    HttpContext.Session.SetInt32("CustomerID", c.CustomerID);
+                    jwt = JsonConvert.DeserializeObject<JWTToken>(apiResponse);
+                    if(jwt == null)
+                    {
+                        ViewBag.ErrorMessage = "Invalid Credentials";
+                        return View();
+                    }
+                    HttpContext.Session.SetString("Customer", jwt.customer.CustomerEmail);
+                    HttpContext.Session.SetInt32("CustomerID", jwt.customer.CustomerID);
+                    string Token = jwt.Token;
+                    HttpContext.Session.SetString("Token", Token);
                     return RedirectToAction("Menu", "Grocery");
-
                 }
-                return RedirectToAction("LoginUser");
-
+                return View();
             }
         }
         public IActionResult RegisterUser()

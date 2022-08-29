@@ -18,6 +18,5 @@ namespace GroceryClientApp.Models
 
         [Display(Name = "Total Amount")]
         public float? TotalAmount { get; set; }
-        public List<Receipt>? Receipt { get; set; }
     }
 }

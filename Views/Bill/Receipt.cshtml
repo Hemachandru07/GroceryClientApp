@@ -1,0 +1,40 @@
+﻿@{
+
+    Layout = "_LayoutUser";
+   
+}
+
+<h4>Thanks for your purchase!</h4>
+<h4>Go to Menu to Order More</h4>
+
+<br />
+
+<table style="width:50%">
+    <tr>
+        <td>Name</td>
+        <td>Unit Price</td>
+        <td>Quantity purchased</td>
+    </tr>
+    <tr>
+        <td>
+            @foreach (var item in @ViewBag.Collection)
+            {
+                <h5>@Html.Raw(item)</h5>
+            }
+        </td>
+        <td>
+            @foreach (var item in @ViewBag.CollectionPrice)
+            {
+                <h5>@Html.Raw(item)</h5>
+            }
+        </td>
+        <td>
+            @foreach (var item in @ViewBag.CollectionQuantity)
+            {
+                <h5>@Html.Raw(item)</h5>
+            }
+        </td>
+    </tr>
+</table>
+
+<h4>Total Amount:@ViewBag.Total</h4>
