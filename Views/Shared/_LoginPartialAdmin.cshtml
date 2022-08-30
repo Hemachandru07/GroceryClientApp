@@ -5,36 +5,24 @@
 
 <ul class="navbar-nav">
     @{
-        ViewBag.Customer = @HttpContextAccessor.HttpContext.Session.GetString("Customer");
+        ViewBag.Admin = @HttpContextAccessor.HttpContext.Session.GetString("Admin");
     }
-    @if (ViewBag.Customer != null)
+    @if (ViewBag.Admin != null)
     {
         <li class="nav-item">
 
-            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @ViewBag.Customer</a>
+            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @ViewBag.Admin</a>
         </li>
+       
         <li class="nav-item">
             <form>
-                <button class="nav-link btn btn-secondary text-dark" asp-controller="Service" asp-action="GetMyCart">Cart</button>
-            </form>
-        </li>
-        <li class="nav-item">
-            <form>
-
                 <button id="Logout" type="submit" class="nav-link btn btn-danger text-dark" asp-controller="Account" asp-action="Logout">Logout</button>
             </form>
         </li>
     }
     else
     {
-        <div class="dropdown">
-            <button class="btn btn-block dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Customer
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="Account/LoginAdmin">Login</a>
-            </div>
-        </div>
+        
     }
 </ul>
 

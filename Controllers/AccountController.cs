@@ -5,6 +5,8 @@ using System.Text;
 using Microsoft.AspNetCore.Routing;
 using NuGet.Common;
 using Microsoft.AspNetCore.Mvc.Filters;
+using System.Net.Mail;
+using System.Net;
 
 namespace GroceryClientApp.Controllers
 {
@@ -37,7 +39,7 @@ namespace GroceryClientApp.Controllers
         }
     }
     //-----------------------------------------
-    [NoDirectAccess]
+    
     public class AccountController : Controller
     {
        
@@ -55,7 +57,7 @@ namespace GroceryClientApp.Controllers
         public async Task<IActionResult> LoginUser(Customer? customer)
         {
             JWTToken jwt = new JWTToken();
-            
+            customer.CPassword = customer.Password;
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri(Baseurl);
@@ -80,14 +82,45 @@ namespace GroceryClientApp.Controllers
                 return View();
             }
         }
+        [NoDirectAccess]
         public IActionResult RegisterUser()
         {
             return View();
         }
-
+        
         [HttpPost]
         public async Task<IActionResult> RegisterUser(Customer customer)
         {
+            //--------------
+            
+            var senderEmail = new MailAddress("grocerymarket12@gmail.com", "Grocery Admin");
+            var receiverEmail = new MailAddress(customer.CustomerEmail, "Receiver");
+            var password = "dqmizaerwutbfpmq";
+            String b = "https://localhost:44369/Account/LoginUser";
+
+            var sub = "Hello " + customer.CustomerName + "! Welcome to Grocery Market";
+            var body = "Your User Id: " + customer.CustomerEmail + " And your password is :" + customer.Password + " Login link " + b;
+
+            var smtp = new SmtpClient
+            {
+                Host = "smtp.gmail.com",
+                Port = 587,
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential(senderEmail.Address, password)
+            };
+            using (var mess = new MailMessage(senderEmail, receiverEmail)
+            {
+                Subject = sub,
+                Body = body
+            })
+            {
+                smtp.Send(mess);
+                ViewBag.Message = String.Format("Registered Successfully!!\\ Please Check Your Mail to login.");
+            }
+            //----------------------
+            customer.CPassword = customer.Password;
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri(Baseurl);
@@ -98,11 +131,12 @@ namespace GroceryClientApp.Controllers
                 return RedirectToAction("LoginUser", "Account");
             }
         }
-
+        [NoDirectAccess]
         public IActionResult LoginAdmin()
         {
             return View();
         }
+        
         [HttpPost]
         public async Task<IActionResult> LoginAdmin(Admin admin)
         {
@@ -115,10 +149,12 @@ namespace GroceryClientApp.Controllers
                 HttpResponseMessage Res = await client.PostAsync("api/Account/AdminLogin", content);
                 if (Res.IsSuccessStatusCode)
                 {
+                    HttpContext.Session.SetString("Admin", admin.EmailID);
                     return RedirectToAction("Menu", "Grocery");
 
                 }
-                return RedirectToAction("LoginAdmin");
+                ViewBag.ErrorMessage = "Invalid Credentials";
+                return View();
                 
             }
         }

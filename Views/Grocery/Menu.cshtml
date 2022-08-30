@@ -13,45 +13,31 @@
     }
 
     <h1>Menu</h1>
+    <p>
+        <a asp-action="AddGrocery">Add Grocery</a>
+    </p>
 
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.GroceryName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Price)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Stock)
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.GroceryName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Price)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Stock)
-                    </td>
-                    <td>
-                        <a asp-action="EditGrocery" asp-route-id="@item.GroceryID">Edit</a> |
-                        <a asp-action="GetGroceryById" asp-route-id="@item.GroceryID">Details</a> |
-                        <a asp-action="DeleteGrocery" asp-route-id="@item.GroceryID">Delete</a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+<div class="row">
+    @foreach (var item in Model)
+    {
+             <div class="col-lg-4 col-md-6 py-3">
+                        <div class="card">
+                        
+                            <div class="card-header">
+                                @item.GroceryName
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text">Price :@item.Price</p>
+                                <p class="card-text">Stock:@item.Stock</p>
+                            </div>
+                            <div class="card-footer">
+                                <a asp-action="EditGrocery" asp-route-id="@item.GroceryID">Edit</a> |
+                                <a asp-action="DeleteGrocery" asp-route-id="@item.GroceryID">Delete</a>
+                            </div>
+                        </div>
+             </div>
+    }
+</div>
 
 }
 else
@@ -61,42 +47,25 @@ else
         Layout = "_LayoutUser";
     }
     <h1>Menu</h1>
-   
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.GroceryName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Price)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Stock)
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.GroceryName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Price)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Stock)
-                    </td>
-                    <td>
-                        <a asp-action="GetGroceryById" asp-route-id="@item.GroceryID">Order</a> 
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+ <div class="row">
+    @foreach (var item in Model)
+    {
+            <div class="col-lg-4 col-md-6 py-3" style="text-align:center">
+                        <div class="card">
+                            <div class="card-header">
+                                @item.GroceryName
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text">Price : @item.Price</p>
+                                <p class="card-text">Stock: @item.Stock</p>
+                            </div>
+                            <div class="card-footer">
+                                <a asp-action="GetGroceryById" asp-route-id="@item.GroceryID">Order</a> 
+                            </div>
+                        </div>
+             </div>
+    }
+ </div>                   
 
 }

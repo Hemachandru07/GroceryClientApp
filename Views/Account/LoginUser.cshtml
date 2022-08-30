@@ -4,10 +4,7 @@
     ViewData["Title"] = "LoginUser";
     Layout = "_LayoutCommon";
 }
-@if (ViewBag.ErrorMessage != null)
-{
-    <div class="text-danger">@ViewBag.ErrorMessage</div>
-}
+
 
 <h4 style="text-align:center">Customer Login</h4>
 
@@ -34,7 +31,11 @@
         </form>
     </div>
 </div>
-
+<br/>
+@if (ViewBag.ErrorMessage != null)
+{
+    <div class="text-danger">@ViewBag.ErrorMessage</div>
+}
 
 
 @section Scripts {
