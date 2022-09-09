@@ -6,7 +6,7 @@ using System.Text;
 
 namespace GroceryClientApp.Controllers
 {
-    [NoDirectAccess]
+    //[NoDirectAccess]
     public class CartController : Controller
     {
         //string Baseurl = "https://localhost:44383/";
