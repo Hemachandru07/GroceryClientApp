@@ -16,7 +16,8 @@ namespace GroceryClientApp.Controllers
     [NoDirectAccess]
     public class GroceryController : Controller
     {
-        string Baseurl = "https://localhost:44383/";
+        //string Baseurl = "https://localhost:44383/";
+        string Baseurl = "https://app-chandruapi.azurewebsites.net/";
         
         // GET: Grocery
         public async Task<IActionResult> Menu()

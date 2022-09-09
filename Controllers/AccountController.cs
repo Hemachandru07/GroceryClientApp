@@ -48,7 +48,8 @@ namespace GroceryClientApp.Controllers
         {
             Session = httpContextAccessor.HttpContext.Session;
         }
-        string Baseurl = "https://localhost:44383/";
+        //string Baseurl = "https://localhost:44383/";
+        string Baseurl = "https://app-chandruapi.azurewebsites.net/";
         public IActionResult LoginUser()
         {
             return View();
@@ -96,7 +97,8 @@ namespace GroceryClientApp.Controllers
             var senderEmail = new MailAddress("grocerymarket12@gmail.com", "Grocery Admin");
             var receiverEmail = new MailAddress(customer.CustomerEmail, "Receiver");
             var password = "dqmizaerwutbfpmq";
-            String b = "https://localhost:44369/Account/LoginUser";
+            //String b = "https://localhost:44369/Account/LoginUser";
+            String b = "https://app-chandruapi.azurewebsites.net/Account/LoginUser";
 
             var sub = "Hello " + customer.CustomerName + "! Welcome to Grocery Market";
             var body = "Your User Id: " + customer.CustomerEmail + " And your password is :" + customer.Password + " Login link " + b;
