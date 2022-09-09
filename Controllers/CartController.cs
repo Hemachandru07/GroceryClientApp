@@ -12,12 +12,12 @@ namespace GroceryClientApp.Controllers
         string Baseurl = "https://localhost:44383/";
         public async Task<List<Cart>> myCart(int? id)
         {
-            string? token = HttpContext.Session.GetString("Token");
+            
             List<Cart> cart = new List<Cart>();
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri(Baseurl);
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                client.DefaultRequestHeaders.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 HttpResponseMessage Res = await client.GetAsync("api/Order/" + id);
                 if (Res.IsSuccessStatusCode)

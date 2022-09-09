@@ -135,13 +135,14 @@ namespace GroceryClientApp.Controllers
             return View();
         }
         public async Task<ActionResult<List<Receipt>>> GetMyOrders()
-            {
+        {
+            string? token = HttpContext.Session.GetString("Token");
             List<Receipt> receipt = new List<Receipt>();
             var id = HttpContext.Session.GetInt32("CustomerID");
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri(Baseurl);
-                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
                 using (var response = await client.GetAsync("api/Bill/GetMyOrders?cid=" + id))
                 {
                     var apiresponse = response.Content.ReadAsStringAsync().Result;
