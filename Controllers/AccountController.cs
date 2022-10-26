@@ -48,8 +48,8 @@ namespace GroceryClientApp.Controllers
         {
             Session = httpContextAccessor.HttpContext.Session;
         }
-        //string Baseurl = "https://localhost:44383/";
-        string Baseurl = "https://app-chandruapi.azurewebsites.net/";
+        string Baseurl = "https://localhost:44383/";
+        //string Baseurl = "https://app-chandruapi.azurewebsites.net/";
         public IActionResult LoginUser()
         {
             return View();

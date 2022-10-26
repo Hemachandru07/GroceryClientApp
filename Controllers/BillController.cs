@@ -8,8 +8,8 @@ namespace GroceryClientApp.Controllers
 {
     public class BillController : Controller
     {
-        //string Baseurl = "https://localhost:44383/";
-        string Baseurl = "https://app-chandruapi.azurewebsites.net/";
+        string Baseurl = "https://localhost:44383/";
+        //string Baseurl = "https://app-chandruapi.azurewebsites.net/";
         CartController c=new CartController();
         public async Task<ActionResult> Payment()
         {
